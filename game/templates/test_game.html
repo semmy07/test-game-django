@@ -3,8 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
 
+    <form method="post">
+        {% csrf_token %}
+        <div class="col-md-6" style="margin: auto; top: 50px">
+            <p style="color:green">{{ message }}</p>
+            <div class="form-group">
+                <label for="board">Boars</label>
+                <textarea class="form-control" id="board" placeholder="SDFATRETQOQERNS" name="board"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="cards">Cards</label>
+                <textarea class="form-control" id="cards" placeholder="A,G,J,B,R,R,P" name="cards"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="players">Players</label>
+                <input class="form-control" id="players" type="text" placeholder="Count of players" name="players">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+
 </body>
 </html>
+
