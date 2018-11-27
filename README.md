@@ -6,3 +6,4 @@ Steps to run project:
 2. create virtual environment.
 3. run command "pip install -r requirements.txt"
 4. run command "python manage.py migrate"
+5. run command "python manage.py runserver"

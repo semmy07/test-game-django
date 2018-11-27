@@ -18,7 +18,13 @@ class GameView(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             board = ' '.join(board for board in request.POST.get('board', '')).split(' ')
-            cards = request.POST.get('cards', '').replace(' ', '').split(',')
+            cards = request.POST.get('cards', '')
+            print(cards)
+            cards = cards.replace(' ', '')
+            print(cards)
+            cards = ' '.join(c.replace('\u200b', '').replace('\u200b', '') for c in cards.split(',')).split(' ')
+            print(cards)
+
             players = request.POST.get('players', '')
             end_game = len(board)
 
@@ -28,25 +34,28 @@ class GameView(View):
 
             count = 0
 
-            player = 0
+            player = 1
             for card in cards:
                 # for player in range(int(players)):
                 if player > int(players):
                     player = 1
                 count += 1
-                try:
-                    player_position = d_players[player]
+                # try:
+                player_position = d_players[player]
+
+                if len(str(card)) == 2:
+                    index = board[player_position::].index(card[0])
+                    index += board[index::].index(card[0])
+                else:
                     index = board[player_position::].index(card)
+                d_players[player] = index
 
-                    if len(card) == 2:
-                        index += board[index::].index(card)
-                    d_players[player] = index
-
-                    if d_players[player] >= end_game:
-                        return render(request, self.template_name, {'message': f'Player {player} wins after {count} cards'})
-                    player += 1
-                except ValueError:
+                if d_players[player] >= end_game:
                     return render(request, self.template_name, {'message': f'Player {player} wins after {count} cards'})
+                player += 1
+                # except ValueError:
+                #     print("")
+                #     return render(request, self.template_name, {'message': f'Player {player} wins after {count} cards WITH ERROR'})
 
             return render(request, self.template_name, {'message': f'No one wins after {count} cards'})
 
