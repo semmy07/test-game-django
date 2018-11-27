@@ -24,7 +24,7 @@ class GameView(View):
 
             d_players = {}
             for player in range(int(players)):
-                d_players[int(player)] = 0
+                d_players[int(player) + 1] = 0
 
             count = 0
 
