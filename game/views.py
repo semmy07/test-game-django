@@ -40,7 +40,7 @@ class GameView(View):
 
                     if len(card) == 2:
                         index += board[index::].index(card)
-                    d_players[player] = player_position + index
+                    d_players[player] = index
 
                     if d_players[player] >= end_game:
                         return render(request, self.template_name, {'message': f'Player {player} wins after {count} cards'})
